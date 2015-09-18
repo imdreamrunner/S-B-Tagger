@@ -1,0 +1,15 @@
+{
+  "name": "WeTag",
+  "version": "0.0.0",
+  "authors": [
+    "Zhou Xinzi <imdreamrunner@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
