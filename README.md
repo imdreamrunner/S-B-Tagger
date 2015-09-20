@@ -13,9 +13,13 @@ Spring & Bear Tagger
 
 2. Create Python virtual environment and install requirements.txt.
 
+    You may follow [this guide](https://virtualenv.pypa.io/en/latest/installation.html) to install virtualenv.
+
     ```bash
     cd S-B-Tagger
     virtualenv env
+    source env/bin/activate
+    pip install -r requirements.txt
     ```
     
 3. Create database. Change the setting in `config.yaml`.
