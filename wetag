@@ -1,0 +1,81 @@
+#! /usr/bin/env python
+
+"""
+This is the command line tool for WeTag.
+"""
+
+import os
+import sys
+import csv
+
+HELP_MESSAGE = """WeTag Command Line Tool
+=======================
+
+Usage: ./wetag <command> (<argument 1> <argument 2> ...)
+
+The following commands are available.
+
+* initdb
+  Initialize the database.
+
+* load <file.csv>
+  Load items to database.
+
+* help
+  Print this manual.
+
+"""
+
+
+def print_help(args=None):
+    print HELP_MESSAGE
+
+
+def init_db(args=None):
+    print "Start initializing database."
+    import app.db
+    app.db.connect()
+    sql_file = os.path.abspath(os.path.dirname(__file__) + '/wetag.sql')
+    with open(sql_file, 'r') as f:
+        sql = f.read()
+        cursor = app.db.get_cursor()
+        cursor.execute(sql)
+        print "Done initializing database."
+
+
+def load_items(args=None):
+    if args is None or len(args) != 1:
+        print "CSV file is not specified."
+        return
+    csv_path = args[0]
+    import app.db
+    app.db.connect()
+    import app.helper
+    with open(csv_path, 'r') as f:
+        print "Trying to read from file " + csv_path
+        reader = csv.reader(f)
+        for row in reader:
+            try:
+                app.helper.insert_item(row[0], row[1])
+                print "Inserted row " + row[0] + " with content " + row[1] + "."
+            except Exception as e:
+                print "Failed to insert row " + row[0] + " with content " + row[1] + " for the following reason:"
+                print "   " + str(e)
+
+
+COMMANDS = {
+    'initdb': init_db,
+    'help': print_help,
+    'load': load_items
+}
+
+if __name__ == "__main__":
+    if len(sys.argv) == 1:
+        print_help()
+        exit()
+    action = sys.argv[1]
+    arguments = sys.argv[2:]
+    if action in COMMANDS:
+        COMMANDS[action](arguments)
+    else:
+        print "Command \"" + action + "\" is not available. Use \"wetag help\" to see the available commands."

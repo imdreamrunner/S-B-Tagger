@@ -2,16 +2,17 @@ __author__ = "Xinzi Zhou"
 __email__ = "imdreamrunner@gmail.com"
 
 import MySQLdb
+from . import config
 
 connection = None
 
 
 def connect():
     global connection
-    connection = MySQLdb.connect(host="localhost",  # your host, usually localhost
-                                 user="root",  # your username
-                                 passwd="lucky",  # your password
-                                 db="wetag")  # name of the data base
+    connection = MySQLdb.connect(host=config.get_config('host'),  # your host, usually localhost
+                                 user=config.get_config('user'),  # your username
+                                 passwd=config.get_config('password'),  # your password
+                                 db=config.get_config('database'))  # name of the data base
 
 
 def disconnect():

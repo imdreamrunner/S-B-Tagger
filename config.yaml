@@ -1,0 +1,5 @@
+host: 'localhost'
+user: 'sb'
+password: 'sb'
+database: 'wetag'
+secret: 'I am a cat.'

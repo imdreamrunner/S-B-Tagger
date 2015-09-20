@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Login - Tweets Tagger</title>
+
+  <link href="/static/css/style.css" rel="stylesheet">
+  <link href="/static/libraries/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">
+        Tweets Tagger
+      </a>
+    </div>
+  </div>
+</nav>
+<div class="container">
+  <form action="/login" method="POST">
+    <p>{{ message }}</p>
+    <div class="form-group">
+      <label>username</label>
+      <input type="text" class="form-control" placeholder="Username" name="username">
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" class="form-control" placeholder="Password" name="password">
+    </div>
+    <button type="submit" class="btn btn-default">Login</button>
+  </form>
+</div>
+
+
+<script src="/static/libraries/jquery/dist/jquery.min.js"></script>
+<script src="/static/libraries/bootstrap/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

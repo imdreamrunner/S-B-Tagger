@@ -1,47 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Tweets Tagger</title>
+  <title>Tweets Tagger</title>
 
-    <link href="/static/css/style.css" rel="stylesheet">
-    <link href="/static/libraries/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-  </head>
-  <body>
-    <nav class="navbar navbar-default">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="#">
-            Tweets Tagger
-          </a>
-        </div>
-      </div>
-    </nav>
-    <div class="container">
-      <div class="row">
-        <div id="item_id" class="hidden">{{ item[0] }}</div>
-        <div class="col-lg-12 content">
-            {{ item[1] }}
-        </div>
-      </div>
-      <div class="row">
-          <div class="btn-group btn-group-lg btn-group-justified">
-            {% for option in options %}
-               <a href="javascript:;" class="btn btn-default"
-                   onclick="vote({{ option[0] }})">{{ option[1] }}</a>
-            {% endfor %}
-          </div>
+  <link href="/static/css/style.css" rel="stylesheet">
+  <link href="/static/libraries/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand">
+        Tweets Tagger
+      </a>
+    </div>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a>You have been logged in as {{ session['user'] }}.</a></li>
+      <li><a href="/logout">Log Out</a></li>
+    </ul>
+  </div>
+</nav>
+<div class="container">
+  {% if item %}
+    <div class="row">
+      <div id="item_id" class="hidden">{{ item[0] }}</div>
+      <div class="col-lg-12 content">
+        {{ item[1] }}
       </div>
     </div>
+    <div class="row">
+      <div class="btn-group btn-group-lg btn-group-justified">
+        {% for option in options %}
+          <a href="javascript:;" class="btn btn-default"
+             onclick="vote({{ option[0] }})">{{ option[1] }}</a>
+        {% endfor %}
+      </div>
+    </div>
+  {% else %}
     <div>
+      {{ message }}
     </div>
+  {% endif %}
+</div>
 
 
-    <script src="/static/js/vote.js"></script>
-    <script src="/static/libraries/jquery/dist/jquery.min.js"></script>
-    <script src="/static/libraries/bootstrap/dist/js/bootstrap.min.js"></script>
-  </body>
+<script src="/static/js/vote.js"></script>
+<script src="/static/libraries/jquery/dist/jquery.min.js"></script>
+<script src="/static/libraries/bootstrap/dist/js/bootstrap.min.js"></script>
+</body>
 </html>

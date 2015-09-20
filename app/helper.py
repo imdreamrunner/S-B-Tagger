@@ -9,6 +9,10 @@ from . import db
 log = logging.getLogger(__name__)
 
 
+LOGIN_USER = """
+    SELECT count(*) FROM `user` WHERE `username` = %s AND `password` = %s
+"""
+
 SELECT_OPTIONS = """
     SELECT `id`, `display` FROM `option`;
 """
@@ -19,8 +23,9 @@ SELECT_ITEM = """
 
 SELECT_RANDOM_ITEM = """
     SELECT i.`id`, i.`content` FROM `item` AS i
-      JOIN (SELECT CEIL(RAND() * (SELECT MAX(`id`) FROM `item` WHERE `tag` = 0)) AS id) AS r
-     WHERE i.`tag` = 0 AND i.`id` >= r.`id` LIMIT 1;
+     WHERE i.`tag` = 0 AND
+           i.`id` NOT IN (SELECT v.`item` FROM `vote` AS v WHERE v.`user` = %s)
+     LIMIT 1;
 """
 
 COUNT_OPTION_VOTE = """
@@ -28,12 +33,23 @@ COUNT_OPTION_VOTE = """
 """
 
 VOTE_FOR_ITEM = """
-    INSERT INTO `vote` (`item`, `option`, `create_time`) VALUES (%s, %s, %s);
+    INSERT INTO `vote` (`item`, `option`, `user`, `create_time`) VALUES (%s, %s, %s, %s);
 """
 
 UPDATE_ITEM = """
     UPDATE `item` SET `tag` = %s WHERE `id` = %s
 """
+
+INSERT_ITEM = """
+    INSERT INTO `item` (`id`, `content`) VALUES (%s, %s)
+"""
+
+
+def login(username, password):
+    cursor = db.get_cursor()
+    cursor.execute(LOGIN_USER, (username, password))
+    result = cursor.fetchall()
+    return int(result[0][0]) == 1
 
 
 def get_options():
@@ -49,9 +65,9 @@ def get_options():
     return options
 
 
-def get_random_item():
+def get_random_item(username):
     cursor = db.get_cursor()
-    cursor.execute(SELECT_RANDOM_ITEM)
+    cursor.execute(SELECT_RANDOM_ITEM, (username,))
     items = cursor.fetchall()
     if len(items) == 0:
         return None
@@ -67,9 +83,9 @@ def get_item(item_id):
     return items[0]
 
 
-def vote(item, option):
+def vote(item, option, username):
     cursor = db.get_cursor()
-    cursor.execute(VOTE_FOR_ITEM, (item, option, datetime.datetime.now()))
+    cursor.execute(VOTE_FOR_ITEM, (item, option, username, datetime.datetime.now()))
     count = {}
     total_count = 0
     for option_id, option_name in get_options():
@@ -79,7 +95,12 @@ def vote(item, option):
     if total_count < 2:
         return
     for key, value in count.iteritems():
-        if value >= total_count / 2:
+        if value > total_count / 2:
             log.info("Update item " + str(item) + "'s tag to " + key + ".")
             cursor.execute(UPDATE_ITEM, (int(key), item))
             break
+
+
+def insert_item(item_id, content):
+    cursor = db.get_cursor()
+    cursor.execute(INSERT_ITEM, (item_id, content))
