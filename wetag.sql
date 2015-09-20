@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Sep 20, 2015 at 02:25 PM
+-- Generation Time: Sep 20, 2015 at 04:12 PM
 -- Server version: 5.6.22
 -- PHP Version: 5.5.27
 
@@ -22,15 +22,11 @@ SET time_zone = "+00:00";
 
 -- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `item`;
-DROP TABLE IF EXISTS `option`;
-DROP TABLE IF EXISTS `user`;
-DROP TABLE IF EXISTS `vote`;
-
 --
 -- Table structure for table `item`
 --
 
+DROP TABLE IF EXISTS `item`;
 CREATE TABLE IF NOT EXISTS `item` (
   `id` bigint(11) NOT NULL,
   `content` text NOT NULL,
@@ -43,6 +39,7 @@ CREATE TABLE IF NOT EXISTS `item` (
 -- Table structure for table `option`
 --
 
+DROP TABLE IF EXISTS `option`;
 CREATE TABLE IF NOT EXISTS `option` (
   `id` int(11) NOT NULL,
   `display` varchar(256) NOT NULL
@@ -63,6 +60,7 @@ INSERT INTO `option` (`id`, `display`) VALUES
 -- Table structure for table `user`
 --
 
+DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
   `username` varchar(64) NOT NULL,
   `password` varchar(256) NOT NULL
@@ -82,6 +80,7 @@ INSERT INTO `user` (`username`, `password`) VALUES
 -- Table structure for table `vote`
 --
 
+DROP TABLE IF EXISTS `vote`;
 CREATE TABLE IF NOT EXISTS `vote` (
   `id` bigint(20) NOT NULL,
   `item` bigint(20) NOT NULL,

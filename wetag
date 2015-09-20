@@ -8,6 +8,7 @@ import os
 import sys
 import csv
 
+
 HELP_MESSAGE = """WeTag Command Line Tool
 =======================
 
@@ -41,6 +42,10 @@ def init_db(args=None):
         cursor = app.db.get_cursor()
         cursor.execute(sql)
         print "Done initializing database."
+    try:
+        cursor.close()
+    except:
+        pass
 
 
 def load_items(args=None):
