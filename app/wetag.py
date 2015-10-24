@@ -4,12 +4,18 @@ __author__ = "Xinzi Zhou"
 __email__ = "imdreamrunner@gmail.com"
 
 
+import sys
 import os
 import logging
 from flask import Flask, render_template, request, session, url_for, redirect
 from . import helper
 from . import db
 from . import config
+
+
+reload(sys)    # to re-enable sys.setdefaultencoding()
+sys.setdefaultencoding('utf-8')
+
 
 log = logging.getLogger(__name__)
 
