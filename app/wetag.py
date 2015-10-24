@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 __author__ = "Xinzi Zhou"
 __email__ = "imdreamrunner@gmail.com"
 
