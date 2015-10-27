@@ -55,6 +55,7 @@ def vote_page():
     item = helper.get_random_item(session['user'])
     if item is None:
         return render_template("vote.jinja2", message='All done.')
+    item = list(item)
     item[1] = unicode(item[1], errors='replace')
     return render_template("vote.jinja2", item=item, options=options)
 
