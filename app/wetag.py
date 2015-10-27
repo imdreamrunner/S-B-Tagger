@@ -13,6 +13,10 @@ from . import db
 from . import config
 
 
+reload(sys)    # to re-enable sys.setdefaultencoding()
+sys.setdefaultencoding('utf-8')
+
+
 log = logging.getLogger(__name__)
 
 STATIC_FOLDER = os.path.abspath(os.path.join(__file__, "../../static"))
