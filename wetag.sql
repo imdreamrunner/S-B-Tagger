@@ -50,9 +50,10 @@ CREATE TABLE IF NOT EXISTS `option` (
 --
 
 INSERT INTO `option` (`id`, `display`) VALUES
-(1, 'Positive'),
+(0, 'Irelative'),
+(1, 'Negative'),
 (2, 'Neutral'),
-(3, 'Negative');
+(3, 'Positive');
 
 -- --------------------------------------------------------
 
@@ -72,7 +73,12 @@ CREATE TABLE IF NOT EXISTS `user` (
 
 INSERT INTO `user` (`username`, `password`) VALUES
 ('admin', 'admin'),
-('test', 'test');
+('gjc', 'gjc'),
+('que', 'que'),
+('xiaoxue', 'xiaoxue'),
+('xinzi', 'xinzi'),
+('xue', 'xue'),
+('yiko', 'yiko');
 
 -- --------------------------------------------------------
 
