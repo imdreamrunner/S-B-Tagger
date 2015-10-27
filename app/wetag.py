@@ -13,10 +13,6 @@ from . import db
 from . import config
 
 
-reload(sys)    # to re-enable sys.setdefaultencoding()
-sys.setdefaultencoding('utf-8')
-
-
 log = logging.getLogger(__name__)
 
 STATIC_FOLDER = os.path.abspath(os.path.join(__file__, "../../static"))
@@ -59,6 +55,7 @@ def vote_page():
     item = helper.get_random_item(session['user'])
     if item is None:
         return render_template("vote.jinja2", message='All done.')
+    item[1] = unicode(item[1], errors='replace')
     return render_template("vote.jinja2", item=item, options=options)
 
 
