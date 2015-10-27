@@ -56,7 +56,7 @@ def vote_page():
     if item is None:
         return render_template("vote.jinja2", message='All done.')
     item = list(item)
-    item[1] = unicode(item[1], errors='replace')
+    item[1] = unicode(item[1], errors='replace', encoding='utf8')
     return render_template("vote.jinja2", item=item, options=options)
 
 
