@@ -8,9 +8,6 @@ import datetime
 from . import db
 
 
-reload(sys)    # to re-enable sys.setdefaultencoding()
-sys.setdefaultencoding('utf-8')
-
 log = logging.getLogger(__name__)
 
 

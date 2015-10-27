@@ -13,9 +13,6 @@ from . import db
 from . import config
 
 
-reload(sys)    # to re-enable sys.setdefaultencoding()
-sys.setdefaultencoding('utf-8')
-
 
 log = logging.getLogger(__name__)
 
@@ -60,7 +57,7 @@ def vote_page():
     if item is None:
         return render_template("vote.jinja2", message='All done.')
     item = list(item)
-    item[1] = unicode(item[1], errors='replace', encoding='utf-8')
+    item[1] = item[1].decode(errors='replace', encoding='utf-8')
     return render_template("vote.jinja2", item=item, options=options)
 
 
