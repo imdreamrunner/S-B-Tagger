@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS `option` (
 --
 
 INSERT INTO `option` (`id`, `display`) VALUES
-(0, 'Irelative'),
+(4, 'Irelative'),
 (1, 'Negative'),
 (2, 'Neutral'),
 (3, 'Positive');
